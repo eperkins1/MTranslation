@@ -1,7 +1,7 @@
 # $ pip install nltk
 # $ python
 # >>> import nltk
-# >>> nltk.download('all')  // you can be more specific than this, but w/e
+# >>> nltk.download('all')
 
 '''Usage:
 

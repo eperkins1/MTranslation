@@ -20,14 +20,10 @@ class Translator:
 			self.unigram_model = LaplaceUnigramModel(f)
 
 	def translate_sentence(self, sentence):
-		###################################################################################
-		# Call PRE-processing rules as functions of sentence and returning sentences HERE #
-		###################################################################################
+		#PRE-processing#
 		tokens = self.tokenizer.tokenize(sentence)
-		###############################################################
-		# or as functions of token list and returning toke list HERE. #
 		tokens = self.remove_se(tokens)
-		###############################################################
+		#Processing#
 		translated_tokens = ['^'] # Arbitrary start 
 		for i in range(0, len(tokens)):
 			token = tokens[i].lower()
@@ -36,17 +32,9 @@ class Translator:
 			else:
 				translated_tokens.append(self.find_next_word(token, translated_tokens))
 
-		# for token in tokens:
-		# 	token = token.lower()
-		# 	translated_tokens.append(self.find_next_word(token, translated_tokens))
-		#######################################################################################
-		# Call POST-processing rules as functions of token list and returning token list HERE #
-		#######################################################################################	
+		
+		#POST-processing#
 		translation = self.format(translated_tokens)
-		###########################################################
-		# or as functions of sentence and returning sentence HERE #
-		# translation = self.reverse_noun_adj([translation])		  #
-		###########################################################
 		return translation
 
 	def para_process(self, para, next_word):
@@ -81,9 +69,6 @@ class Translator:
 		s = s[0].upper() + s[1:]		# Capitalize the sentence
 		return s		
 
-	###########################################################
-	# ADD YOUR PREPROCESSING + POSTPROCESSING FUNCTIONS HERE. #
-	###########################################################
 
 	def reverse_noun_adj(self, s):
 		noun_tags = set(['NNP', 'NN', 'NNS'])
