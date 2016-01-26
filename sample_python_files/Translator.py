@@ -23,6 +23,7 @@ class Translator:
 		#PRE-processing#
 		tokens = self.tokenizer.tokenize(sentence)
 		tokens = self.remove_se(tokens)
+		
 		#Processing#
 		translated_tokens = ['^'] # Arbitrary start 
 		for i in range(0, len(tokens)):
@@ -54,7 +55,6 @@ class Translator:
 		if (prev_word == ',') or (prev_word == '.'):
 			prev_word = current_translation[-2] 	# If the previous token is punctuation, get what's before it
 		for word in candidate_words:
-			# score = self.bigram_model.score([prev_word, word])
 			score = self.bigram_model.score([prev_word, word]) + self.unigram_model.score([word])
 
 			if (score > top_score):
@@ -74,7 +74,6 @@ class Translator:
 		noun_tags = set(['NNP', 'NN', 'NNS'])
 		adj_tags = set(['JJ'])
 		parsed = parse.parse_english(s)[0]
-		# print parsed
 		words = parsed.words
 		for i in range(len(words)-1):
 			if parsed.tags[i] in noun_tags:
@@ -82,9 +81,7 @@ class Translator:
 					w = words[i]
 					words[i] = words[i+1]
 					words[i+1] = w
-					print ">>>> SWITCHED %s and %s" % (w, words[i])
-		words = ['^'] + words # stupid hack to make the formatting work
-		# print words
+		words = ['^'] + words # makes the formatting work
 		s = self.format(words)
 		return s
 
