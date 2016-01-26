@@ -4,8 +4,8 @@
 
 import re
 import ourdict
-from LaplaceBigramLanguageModel import LaplaceBigramModel
-from unigram_model import LaplaceUnigramModel
+from bigram_model import LaplaceBigramLanguageModel
+from unigram_model import LaplaceUnigramLanguageModel
 from nlp_tools import Tokenizer
 import parse
 
@@ -108,8 +108,8 @@ def main():
     tranny = Translator('giddycorpus.txt')
     tranny.translate_sentence("Cuando se accede al ordenador como tal, pueden añadirse otros usuarios, configurar Usuarios Múltiples de Mac OS X, cambiar determinados ajustes del sistema y, en general, disponer de mayor acceso al sistema.")
     for i, (spanish_sentence, english_sentence) in enumerate(zip(ourdict.spanish_sentences, ourdict.english_sentences)):
-     	#spanish_sentence = ourdict.spanish_sentences[i]
-     	#english_sentence = ourdict.english_sentences[i]
+     	spanish_sentence = ourdict.spanish_sentences[i]
+     	english_sentence = ourdict.english_sentences[i]
     	translation = tranny.translate_sentence(spanish_sentence)
     	print "number: %d" % i
     	print "***ORIGINAL SENTENCE***: %s" % spanish_sentence
